@@ -23,7 +23,7 @@ class Main:
         self.final_boss = None
         
         self.counter_wave = 0
-        self.enemies_for_wave = 36
+        self.enemies_for_wave = 48
         self.conditional_by_wave = True
         self.conditional_by_FinalBoss = True
         self.game_over_text_or_victory = None
@@ -73,8 +73,9 @@ class Main:
         self.player.update_health_bar()
         self.player.alive = True
         self.counter_wave = 0  
-        self.enemies_for_wave = 36  
+        self.enemies_for_wave = 48  
         self.conditional_by_wave = True
+        self.final_boss = None
         if not self.final_boss is None:
             self.final_boss.remove()
         
@@ -285,9 +286,7 @@ def ocultar_nivel(padre):
     app = Main(padre)
     return app.hide_frame()
 
-"""
 if __name__ == "__main__":
     root = tk.Tk()
     app = Main(root)
     root.mainloop()
-"""
