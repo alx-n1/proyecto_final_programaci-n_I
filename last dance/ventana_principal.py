@@ -1,4 +1,4 @@
-from Interfaz_Main import create_game_frame,restar_game,ocultar_nivel, Main
+from Interfaz_Main import create_game_frame,restar_game,ocultar_nivel
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk  # Importa PIL para redimensionar la imagen
@@ -8,29 +8,25 @@ from botones import boton_salir, boton_inicio, boton_volver_titulo,boton_cerrar_
 from botones import boton_selec_x_nivel,boton_confi_salir,boton_volver_titulo_selec_level
 
 
-
 class ventana_principal(tk.Tk):
     def __init__(self):
         super().__init__()
         #titulo ¿provicional? de la ventana
-        self.title("Space Invaders")
+        self.title("Do you know FcF")
         #se le da una forma a la ventana conforme al tamaño del monitor/pantalla de nuestro dispositivo
         self.geometry(f"{self.winfo_screenwidth()}x{self.winfo_screenheight()}")  
         #hace que inicialice en ventana completa
         self.state('zoomed')
         
-        # Se crea una instancia unica del metodo Main para evitar errores
-        
         #self.bind hace que se bindee ESC para que al pulsarlo se llame el metodo para mostrar el frame opciones
         #junto con su variedad de opciones
         self.bind("<Escape>", self.mostrar_frame_opciones)
         #se inicializa los distintos frames que tenemos
-        self.crear_frame_juego()
         self.crear_frame_principal()
         self.crea_frame_opciones()
+        self.crear_frame_juego()
         self.crear_ventana_control_volumen()
         #self.crear_frame_SelecLevel()
-        self.juego = Main(self.frame_iniciar_juego)  # Almacena la instancia
 
         
     def crear_frame_principal(self):
@@ -43,7 +39,7 @@ class ventana_principal(tk.Tk):
         self.frame_principal = tk.Frame(self)
         
         # Fondo animado
-        #agregar_fondo_animado(self.frame_principal, "fondo/fndo.mp4")
+        agregar_fondo_animado(self.frame_principal, "fondo/fndo.mp4")
         
         # Música de fondo
         reproducir_musica_inicio()
@@ -51,9 +47,7 @@ class ventana_principal(tk.Tk):
         # Botón de inicio con imagen por medio de una función
         boton_inicio(self.frame_principal, self.mostrar_juego, 10, 200)
         #boton selec_level
-        
         #boton_selec_level(self.frame_principal,self.mostrar_frame_selecLevel,10,300)
-        
         #boton para cerrar la ventana principal (con esto se cierra todos los frames)
         boton_salir(self.frame_principal, self.salir, 10, 400)
         
@@ -69,7 +63,7 @@ class ventana_principal(tk.Tk):
         sonido_x("sonidos/Files_MenuSelect.ogg")
         
         self.frame_opciones.place_forget()
-        #self.frame_selec_level.pack_forget()
+        self.frame_selec_level.pack_forget()
         #no me deja volver al menu de inicio cuando tengo abierto el frame de iniciar juego
         self.frame_iniciar_juego.pack_forget()
         #y esta otra funcion que en teoria deberia serivir, no sirve
@@ -96,8 +90,7 @@ class ventana_principal(tk.Tk):
         """
         reproduci_cancion_nivel("ost/REVOLVANIA THE WORLD REVOLVING x Megalovania Remix.mp3")
         select()
-        
-        restar_game(self.frame_iniciar_juego)
+        restar_game(self)
         
         
         self.frame_principal.pack_forget()
@@ -248,11 +241,11 @@ class ventana_principal(tk.Tk):
         
 
 
-        
+    """   
     def crear_frame_SelecLevel(self):
-        """metodo que crea el frame para seleccionar nivel, se le da un fondo
+        metodo que crea el frame para seleccionar nivel, se le da un fondo
         y se le añaden todos lo botones para que el player elija lo que quiera
-        """
+        
         #crea el frame dentro de la ventana 
         self.frame_selec_level=tk.Frame(self)
         #le definimos un fondo
@@ -295,25 +288,24 @@ class ventana_principal(tk.Tk):
         #quita temporalmente el frame de la vista del usuario hasta que se vuelva a llamar mediante algun metodo
         self.frame_selec_level.pack_forget()
         
-    """    
+    """ 
+    """ 
     def mostrar_frame_selecLevel(self):
-        """
+        
         #muestra el frame de seleccion de niveles junto con su contenido
-    """
+        
         #quita de la vista el frame del menu principal y el de opciones
         self.frame_principal.pack_forget()
         self.frame_opciones.place_forget()
         #muestra el frame de de seleccion de niveles
         #con fill both hacemos que el frame se expanda de forma verticual y horizontalmente, el expand true hace que se llene la ventana horizontal y verticalmente
         self.frame_selec_level.pack(fill="both",expand=True)
-    """    
+    """
 
         
         
+             
 #crea la instancia para que se inicie la ventana
 princip = ventana_principal()
 #inicia la ventana hasta que el usuario precione el boton de salir que se le presenta mediante botones o que cierre con la x de la ventana
 princip.mainloop()
-
-
-#print(sys.getsizeof(ventana_principal))
